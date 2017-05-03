@@ -1,38 +1,6 @@
-﻿﻿#leftPanel {
-    float: left;
-    clear: left;
-    width: 35%;
-}
-
-#rightPanel {
-    float: left;
-    clear: right;
-    width: 65%;
-    border-left:
-}
-
-g.slice text {
+﻿g.slice text {
     font: bold 1em 'Courier New';
     text-transform:capitalize;
-}
-
-svg {
-    padding-top: 100px;
-}
-
-#banner {
-    display: inline;
-}
-
-#banner a {
-    float: left;
-    margin-top: 40px;
-}
-
-#banner h1 {
-    float: left;
-    clear: right;
-    margin-top: 73px;
 }
 
 .flex {
