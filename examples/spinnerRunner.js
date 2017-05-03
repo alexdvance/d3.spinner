@@ -27,54 +27,6 @@
         }, tyme);
     });
 
-    $("#new-todo").keyup(function(event) {
-        var value = event.target.value;
-        if (event.keyCode === 13 && value !== '') {
-            listAdd(value);
-            wheel.update(data);
-            event.target.value = "";
-        }
-    });
 
-    var listAdd = function(value) {
-        var li = "<li class='todo'><div class='view'><label>" + value + "</label>" +
-                 "<button class='destroy'></button></div>" +
-                 "<input class='edit' type='text' value='" + value + "'></li>";
-
-        $("#main").removeClass("hidden");
-        $("#todo-list").append(li);
-        data.push(value);
-    };
-
-    $("#todo-list").on('click', '.destroy', function(event) {
-        var item = $(this).siblings('label')[0].innerText;
-        var pos = $.inArray(item, data);
-        if (pos > -1) {
-            data.splice(pos, 1);
-        }
-        wheel.update(data);
-        $(this).parentsUntil(".todo").remove();
-    });
-
-    $("#save-list").click(function() {
-        var savedData = data.slice(1).join(",");
-        $.post("urlGenerator.php", {"data": savedData }, function(d) {
-            window.location.hash = "#!" + d;
-        });
-    });
-
-    if (window.location.hash) {
-        var url = "urlGenerator.php?id=" + window.location.hash.slice(2);
-        $.getJSON(url, function(d) {
-            var tempData = d[0].data.split(",");
-            for (var i = 0; i < tempData.length; i++) {
-                listAdd(tempData[i]);
-            }
-            createWheel();
-        }).error(function(d) {
-            console.log(d);
-        });
-    } else {
-        createWheel();
-    }
+    createWheel();
 });
