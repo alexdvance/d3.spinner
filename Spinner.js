@@ -1,12 +1,12 @@
 var Spinner = function(el, cfg) {
     cfg = cfg || {};
 
+    const PI = 3.14159;
     var running = false;
     var vis, arc, arcs, pie, path, text;
     var boundaries = [];
     var element = el;
     var deg = 0;
-    var PI = 3.14159;
 
     // provide default config values
     var defaults = {
@@ -96,8 +96,8 @@ var Spinner = function(el, cfg) {
         });
 
         arcs.exit().remove();
-        d3.selectAll("path").remove();
-        d3.selectAll("text").remove();
+        d3.select(element).selectAll("path").remove();
+        d3.select(element).selectAll("text").remove();
 
         arcs.enter() //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
             .append("svg:g") //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)

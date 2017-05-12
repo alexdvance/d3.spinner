@@ -1,6 +1,6 @@
 ﻿$(document).ready(function() {
     var data = [];
-    var wheel;
+    var wheels = {};
 
     var createWheel = function() {
         var config = {
@@ -11,19 +11,25 @@
 
         if (data.length) config.data = data;
 
-        wheel = new Spinner("#spinnerContainer", config);
+        $('.js-spinner-container').each(function(i, spinnerContainer) {
+            var spinnerId = $(this).data('spinnerContainer');
+
+            wheels[spinnerId] = new Spinner(spinnerId, config);
+        });
     };
 
-    $("#spin").click(function() {
-        var spinResult = wheel.spin();
+    $('.js-spin').click(function() {
+        var spinnerId = $(this).data('spinnerContainer');
+        var spinResult = wheels[spinnerId].spin();
         var tyme = spinResult.duration;
         var slice = spinResult.selection;
 
-        document.getElementById("spin").disabled = true;
+        $(this)[0].disabled = true;
 
         setTimeout(function() {
-            document.getElementById("spin").disabled = false;
-            $("#result").html("<span>And the winner is...<strong>" + spinResult.selection.key + "!!!</strong></span>");
+            $(this)[0].disabled = false;
+
+            $('#result').html("<span>And the winner is...<strong>" + spinResult.selection.key + "!!!</strong></span>");
         }, tyme);
     });
 

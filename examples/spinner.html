@@ -15,18 +15,40 @@
 <body>
 
 <div id="container">
-    <div id="rightPanel">
+    <div class="panel">
         <div id="banner" class="flex">
             <div>
-                <a id="spin" class="button"><span>Spin</span></a>
+                <a id="spin" class="js-spin button"
+                   data-spinner-container="#spinnerContainer">
+                    <span>Spin</span>
+                </a>
             </div>
             <div>
                 <h1 id="result">And the winner is...</h1>
             </div>
         </div>
-        <div id="spinnerContainer">
+
+        <div id="spinnerContainer"
+             class="js-spinner-container"
+             data-spinner-container="#spinnerContainer"></div>
+    </div>
+
+    <div class="panel">
+        <div id="banner" class="flex">
+            <div>
+                <a id="spin" class="js-spin button"
+                   data-spinner-container="#spinnerContainerInverted">
+                    <span>Spin</span>
+                </a>
+            </div>
+            <div>
+                <h1 id="result">And the winner is...</h1>
+            </div>
         </div>
 
+        <div id="spinnerContainerInverted"
+             class="js-spinner-container"
+             data-spinner-container="#spinnerContainerInverted"></div>
     </div>
 </div>
 </body>
