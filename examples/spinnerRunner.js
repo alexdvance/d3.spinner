@@ -21,6 +21,7 @@
 
     $('.js-spin').click(function() {
         var spinnerId = $(this).data('spinnerContainer');
+        var spinResultSelector = $(this).data('spinnerResult');
         var spinResult = wheels[spinnerId].spin();
         var tyme = spinResult.duration;
         var slice = spinResult.selection;
@@ -30,7 +31,7 @@
         setTimeout(function() {
             $(this)[0].disabled = false;
 
-            $('#result').html("<span>And the winner is...<strong>" + spinResult.selection.key + "!!!</strong></span>");
+            $(spinResultSelector).html("<span>And the winner is...<strong>" + spinResult.selection.key + "!!!</strong></span>");
         }, tyme);
     });
 
