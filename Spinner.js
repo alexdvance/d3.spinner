@@ -57,11 +57,29 @@ var Spinner = function(el, cfg) {
     };
 
     var drawPointer = function() {
+        var spinnerPointsDict = {
+            wheelOfFortune: (-config.outerR/24) + ", " +
+                (-config.outerR - config.outerR/12) + " " +
+                (config.outerR/24) + "," +
+                (-config.outerR - config.outerR/12) + " " +
+                "0," +
+                (-config.outerR - config.outerR/12 + 40),
+            twister: (-config.outerR/24) + ", " +
+                "0 " +
+                (config.outerR/24) + "," +
+                " 0 " +
+                " 0," +
+                (-config.outerR/3)
+           };
+        var spinnerCirclePointsDict = {
+            wheelOfFortune: -config.outerR - config.outerR/12,
+            twister: 0
+        };
+        console.log('twisterSpinner', spinnerPointsDict.twister)
+
         vis.append("polygon")
            .attr("fill", "white")
-           .attr("points", (-config.outerR/24) + "," + (-config.outerR - config.outerR/12) + " " +
-                           (config.outerR/24) + "," + (-config.outerR - config.outerR/12) + " " +
-                           "0," + (-config.outerR - config.outerR/12 + 40))
+           .attr("points", spinnerPointsDict[config.type])
            .attr('class', 'pointer')
            .style('opacity', 1)
            .attr("stroke", "black")
@@ -69,7 +87,7 @@ var Spinner = function(el, cfg) {
 
         vis.append("circle")
            .attr("cx", 0)
-           .attr("cy", -config.outerR - config.outerR/12)
+           .attr("cy", spinnerCirclePointsDict[config.type])
            .attr("r", config.outerR/24)
            .attr("fill", "white")
            .attr("stroke", "black")
@@ -94,6 +112,7 @@ var Spinner = function(el, cfg) {
                 end: a.endAngle
             });
         });
+        console.log('boundaries', boundaries)
 
         arcs.exit().remove();
         d3.select(element).selectAll("path").remove();
@@ -120,8 +139,19 @@ var Spinner = function(el, cfg) {
     };
 
     var selectedSlice = function(deg) {
-        var pointer = (360 -  (deg%360))*(PI/180);
+        deg = deg % 360;
+        // For the twister spinner, cross multiply to convert
+        // degrees to fraction out of 2πr (r = 1)
+        // deg/360 === X/(2 * PI)
+        var pointerDict = {
+            'wheelOfFortune': (360 - deg)*(PI/180),
+            'twister': (deg * PI * 2)/360
+        };
+
+        var pointer = pointerDict[config.type];
         var result;
+        console.log('pointer', pointer)
+        console.log('deg', deg % 360)
 
         boundaries.forEach(function(x) {
             if (x.start < pointer && x.end > pointer) {
@@ -132,6 +162,11 @@ var Spinner = function(el, cfg) {
     };
 
     var spin = function(degrees, duration) {
+        var tagToSpinDict = {
+            'wheelOfFortune': 'g.slice',
+            'twister': 'polygon',
+        }
+
         running = !running;
 
         if (!running) { spin(); }
@@ -139,15 +174,17 @@ var Spinner = function(el, cfg) {
         deg = degrees || Math.floor( (Math.random() * config.maxRotation) + config.minRotation);
         duration = (duration !== undefined) ? duration : (deg*500)/360;
 
-        vis.selectAll("g.slice").transition()
+        vis.selectAll(tagToSpinDict[config.type]).transition()
             .ease("quad-out")
             .duration(duration)
             .attrTween("transform", function() {
                 return d3.interpolateString("rotate(0)", "rotate(" + deg + ")");
             });
 
-        return { duration: duration,
-                 selection: selectedSlice(deg) };
+        return {
+            duration: duration,
+            selection: selectedSlice(deg)
+        };
     }
 
     init();
