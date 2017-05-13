@@ -3,7 +3,9 @@ d3.spinner
 
 Spin the wheel.
 
-A random number generator will determine which slice of the spinner is selected. At work we use this to determine where to go for lunch.
+Can create Wheel of Fortune spinners (whole wheel spins) or Twister spinners (center spinner spins).
+
+A random number generator will determine which slice of the spinner is selected.
 
 Dependencies:
 -------------------------
@@ -14,10 +16,10 @@ How to use:
 ------------------------
 **Construct a new Wheel**
 
-    var foo = new Spinner(element, configObj); 
+    var foo = new Spinner(element, configObj);
 
 element is the DOM node to attach the wheel to. Required.
-configObj is optional. 
+configObj is optional.
 The text on the pie slices is initialized via this object {configObj.data}
 using a simple array.
 
@@ -27,7 +29,7 @@ using a simple array.
 call the .spin method.
 
     foo.spin();
-    
+
 spin() takes two optional parameters (in case you need to rig it).
 degrees, and duration (in ms)
 return value is an object containing two properties:
@@ -49,4 +51,4 @@ That's pretty much it, ezpz.
 -------------------------------
 Here is a working example. The wheel spins, you can add items to it, and you can save the list to the server.
 
-http://jessedahl.com/#/spinner
+http://alexdvance.com/projects/d3-spinner/examples/spinner.html
