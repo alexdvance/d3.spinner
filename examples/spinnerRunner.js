@@ -14,6 +14,7 @@
         $('.js-spinner-container').each(function(i, spinnerContainer) {
             var spinnerId = $(this).data('spinnerContainer');
 
+            config.type = $(this).data('spinnerType') || 'wheelOfFortune';
             wheels[spinnerId] = new Spinner(spinnerId, config);
         });
     };
