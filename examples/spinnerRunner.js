@@ -3,19 +3,19 @@
     var wheels = {};
 
     var createWheel = function() {
-        var config = {
-            margins: {top: 40, right: 10, bottom: 10, left: 10},
-            outerR: 200,
-            w: 420,
-            h: 450,
-        };
-
-        if (data.length) config.data = data;
-
         $('.js-spinner-container').each(function(i, spinnerContainer) {
-            var spinnerId = $(this).data('spinnerContainer');
+            var config = {
+                margins: {top: 40, right: 10, bottom: 10, left: 10},
+                outerR: 200,
+                w: 420,
+                h: 450,
+            };
 
-            if($(this).data('spinnerType')) config.type = $(this).data('spinnerType');
+            var spinnerId = $(this).data('spinnerContainer');
+            var spinnerType = $(this).data('spinnerType');
+
+            if (data.length) config.data = data;
+            if (spinnerType) config.type = spinnerType;
 
             wheels[spinnerId] = new Spinner(spinnerId, config);
         });
