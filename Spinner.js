@@ -22,7 +22,10 @@ var Spinner = function(el, cfg) {
         h: 700,
         outerR: 280,
         innerR: 8,
-        color: d3.scale.category10(),
+        color: function(i) {
+            var colors = ['#0074D9', '#FF851B', '#FF4136', '#39CCCC', '#2ECC40', '#FFDC00', '#85144b', '#B10DC9', '#7FDBFF', '#AAAAAA', '#DDDDDD'];
+            return colors[i % colors.length];
+        },
         minRotation: 1080,
         maxRotation: 7200
     };
@@ -126,6 +129,7 @@ var Spinner = function(el, cfg) {
             .attr("d", arc) //this creates the actual SVG path using the associated data (pie) with the arc drawing function
 
         arcs.append("svg:text") //add a label to each slice
+            .attr("fill", "white")
             .attr("transform", function(d) { //set the label's origin to the center of the arc
                 d.innerRadius = config.innerR;
                 d.outerRadius = config.outerR;
