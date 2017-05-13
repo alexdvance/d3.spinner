@@ -1,6 +1,8 @@
 d3.spinner
 ==========
 
+![wheels screenshot](https://www.dropbox.com/s/n9gq9re5n1szvw2/Screenshot%202017-05-13%2016.39.59.png?dl=0)
+
 Spin the wheel.
 
 Can create Wheel of Fortune spinners (whole wheel spins) or Twister spinners (center spinner spins).
