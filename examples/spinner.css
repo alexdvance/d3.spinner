@@ -1,9 +1,4 @@
-﻿g.slice text {
-    font: bold 1em 'Courier New';
-    text-transform:capitalize;
-}
-
-.flex {
+﻿.flex {
 	display: flex;
 }
 
@@ -66,12 +61,6 @@ button.destroy {
 	background: linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
 	border-top-left-radius: 1px;
 	border-top-right-radius: 1px;
-}
-
-#main {
-	position: relative;
-	z-index: 2;
-	border-top: 1px dotted #adadad;
 }
 
 .hidden {
