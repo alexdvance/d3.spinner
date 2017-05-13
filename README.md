@@ -1,7 +1,7 @@
 d3.spinner
 ==========
 
-![wheels screenshot](https://alexdvance.github.io/d3.spinner/img/screenshot.png)
+![wheels screenshot](https://alexdvance.github.io/d3.spinner/examples/img/screenshot.png)
 
 Spin the wheel.
 
