@@ -1,80 +1,42 @@
 ﻿$(document).ready(function() {
     var data = [];
-    var wheel;
+    var wheels = {};
 
     var createWheel = function() {
-        var config = {
-            margins: {top: 40, right: 10, bottom: 10, left: 10},
-            outerR: 200,
-            h: 450,
-        };
+        $('.js-spinner-container').each(function(i, spinnerContainer) {
+            var config = {
+                margins: {top: 40, right: 10, bottom: 10, left: 10},
+                outerR: 200,
+                w: 420,
+                h: 450,
+            };
 
-        if (data.length) config.data = data;
+            var spinnerId = $(this).data('spinnerContainer');
+            var spinnerType = $(this).data('spinnerType');
 
-        wheel = new Spinner("#spinnerContainer", config);
+            if (data.length) config.data = data;
+            if (spinnerType) config.type = spinnerType;
+
+            wheels[spinnerId] = new Spinner(spinnerId, config);
+        });
     };
 
-    $("#spin").click(function() {
-        var spinResult = wheel.spin();
+    $('.js-spin').click(function() {
+        var spinnerId = $(this).data('spinnerContainer');
+        var spinResultSelector = $(this).data('spinnerResult');
+        var spinResult = wheels[spinnerId].spin();
         var tyme = spinResult.duration;
         var slice = spinResult.selection;
 
-        document.getElementById("spin").disabled = true;
+        $(this)[0].disabled = true;
 
         setTimeout(function() {
-            document.getElementById("spin").disabled = false;
-            $("#result").html("<span>And the winner is...<strong>" + spinResult.selection.key + "!!!</strong></span>");
+            $(this)[0].disabled = false;
+
+            $(spinResultSelector).html(spinResult.selection.key + "!!!");
         }, tyme);
     });
 
-    $("#new-todo").keyup(function(event) {
-        var value = event.target.value;
-        if (event.keyCode === 13 && value !== '') {
-            listAdd(value);
-            wheel.update(data);
-            event.target.value = "";
-        }
-    });
 
-    var listAdd = function(value) {
-        var li = "<li class='todo'><div class='view'><label>" + value + "</label>" +
-                 "<button class='destroy'></button></div>" +
-                 "<input class='edit' type='text' value='" + value + "'></li>";
-
-        $("#main").removeClass("hidden");
-        $("#todo-list").append(li);
-        data.push(value);
-    };
-
-    $("#todo-list").on('click', '.destroy', function(event) {
-        var item = $(this).siblings('label')[0].innerText;
-        var pos = $.inArray(item, data);
-        if (pos > -1) {
-            data.splice(pos, 1);
-        }
-        wheel.update(data);
-        $(this).parentsUntil(".todo").remove();
-    });
-
-    $("#save-list").click(function() {
-        var savedData = data.slice(1).join(",");
-        $.post("urlGenerator.php", {"data": savedData }, function(d) {
-            window.location.hash = "#!" + d;
-        });
-    });
-
-    if (window.location.hash) {
-        var url = "urlGenerator.php?id=" + window.location.hash.slice(2);
-        $.getJSON(url, function(d) {
-            var tempData = d[0].data.split(",");
-            for (var i = 0; i < tempData.length; i++) {
-                listAdd(tempData[i]);
-            }
-            createWheel();
-        }).error(function(d) {
-            console.log(d);
-        });
-    } else {
-        createWheel();
-    }
+    createWheel();
 });
