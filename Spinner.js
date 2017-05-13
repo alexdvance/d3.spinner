@@ -10,6 +10,7 @@ var Spinner = function(el, cfg) {
 
     // provide default config values
     var defaults = {
+        type: 'wheelOfFortune',
         margins: {
             top: 50,
             right: 50,
@@ -75,7 +76,6 @@ var Spinner = function(el, cfg) {
             wheelOfFortune: -config.outerR - config.outerR/12,
             twister: 0
         };
-        console.log('twisterSpinner', spinnerPointsDict.twister)
 
         vis.append("polygon")
            .attr("fill", "white")
@@ -112,7 +112,6 @@ var Spinner = function(el, cfg) {
                 end: a.endAngle
             });
         });
-        console.log('boundaries', boundaries)
 
         arcs.exit().remove();
         d3.select(element).selectAll("path").remove();
@@ -150,8 +149,6 @@ var Spinner = function(el, cfg) {
 
         var pointer = pointerDict[config.type];
         var result;
-        console.log('pointer', pointer)
-        console.log('deg', deg % 360)
 
         boundaries.forEach(function(x) {
             if (x.start < pointer && x.end > pointer) {

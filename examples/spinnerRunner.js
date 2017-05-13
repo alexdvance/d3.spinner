@@ -6,6 +6,7 @@
         var config = {
             margins: {top: 40, right: 10, bottom: 10, left: 10},
             outerR: 200,
+            w: 420,
             h: 450,
         };
 
@@ -14,7 +15,8 @@
         $('.js-spinner-container').each(function(i, spinnerContainer) {
             var spinnerId = $(this).data('spinnerContainer');
 
-            config.type = $(this).data('spinnerType') || 'wheelOfFortune';
+            if($(this).data('spinnerType')) config.type = $(this).data('spinnerType');
+
             wheels[spinnerId] = new Spinner(spinnerId, config);
         });
     };
@@ -31,7 +33,7 @@
         setTimeout(function() {
             $(this)[0].disabled = false;
 
-            $(spinResultSelector).html("<span>And the winner is...<strong>" + spinResult.selection.key + "!!!</strong></span>");
+            $(spinResultSelector).html(spinResult.selection.key + "!!!");
         }, tyme);
     });
 
