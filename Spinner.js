@@ -98,7 +98,6 @@ var Spinner = function(el, cfg) {
     };
 
     var draw = function() {
-        boundaries = [];
         pie = d3.layout.pie() //this will create arc data for us given a list of values
                        .startAngle(function(d, i) {
                            return deg%360 * (PI/180);
